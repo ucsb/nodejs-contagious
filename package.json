@@ -1,0 +1,23 @@
+{ "name" : "contagious"
+, "version" : "1.0.0"
+, "license" : "GPL-3.0"
+, "author" : 
+   {
+     "name"  : "Scott A. Williams"
+,    "email" : "sawilliams@cmc.edu"
+   }
+, "bin": { "contagious" : "./contagious.js" }
+, "repository" :
+   { 
+     "type" : "git"
+   , "url"  : "https://github.com/claremontmckennacollege/nodejs-contagious.git"
+   }
+, "dependencies" :
+   { 
+     "path"    : "*" 
+,    "fs"      : "*"
+,    "async"   : "*"
+,    "rsync"   : "*"
+,    "inotify" : "*"
+   }
+}

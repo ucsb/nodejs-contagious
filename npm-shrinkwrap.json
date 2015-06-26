@@ -1,0 +1,30 @@
+{
+  "name": "contagious",
+  "version": "1.0.0",
+  "dependencies": {
+    "path": {
+      "version": "0.11.14",
+      "from": "path@*",
+      "resolved": "https://registry.npmjs.org/path/-/path-0.11.14.tgz"
+    },
+    "fs": {
+      "version": "0.0.2",
+      "from": "fs@*"
+    },
+    "async": {
+      "version": "0.9.0",
+      "from": "async@",
+      "resolved": "https://registry.npmjs.org/async/-/async-0.9.0.tgz"
+    },
+    "rsync": {
+      "version": "0.3.0",
+      "from": "rsync@",
+      "resolved": "https://registry.npmjs.org/rsync/-/rsync-0.3.0.tgz"
+    },
+    "inotify": {
+      "version": "1.2.1",
+      "from": "inotify@",
+      "resolved": "https://registry.npmjs.org/inotify/-/inotify-1.2.1.tgz"
+    }
+  }
+}
