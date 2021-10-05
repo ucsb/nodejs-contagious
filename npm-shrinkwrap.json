@@ -3,28 +3,24 @@
   "version": "1.0.0",
   "dependencies": {
     "path": {
-      "version": "0.11.14",
+      "version": "0.12.7",
       "from": "path@*",
       "resolved": "https://registry.npmjs.org/path/-/path-0.11.14.tgz"
     },
-    "fs": {
-      "version": "0.0.2",
-      "from": "fs@*"
-    },
     "async": {
-      "version": "0.9.0",
+      "version": "3.2.1",
       "from": "async@",
       "resolved": "https://registry.npmjs.org/async/-/async-0.9.0.tgz"
     },
     "rsync": {
-      "version": "0.3.0",
+      "version": "0.6.1",
       "from": "rsync@",
-      "resolved": "https://registry.npmjs.org/rsync/-/rsync-0.3.0.tgz"
+      "resolved": "https://registry.npmjs.org/rsync/-/rsync-0.6.1.tgz"
     },
     "inotify": {
-      "version": "1.2.1",
+      "version": "1.4.6",
       "from": "inotify@",
-      "resolved": "https://registry.npmjs.org/inotify/-/inotify-1.2.1.tgz"
+      "resolved": "https://registry.npmjs.org/inotify/-/inotify-1.4.6.tgz"
     }
   }
 }

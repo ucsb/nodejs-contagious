@@ -140,7 +140,7 @@ function parseconfs(){
 			}else if (arg.split('=')[0] == '--exclude'){
 				exclude = arg.split('=')[1].split(',');
 			}else if (arg.split('=')[0] == '--server'){
-				server = arg.split('=')[1].split(',');
+				servers = arg.split('=')[1].split(',');
 			}else if (arg.split('=')[0] == '--user'){
 				user = arg.split('=')[1];
 			}else if (arg.split('=')[0] == '--sshkey'){
