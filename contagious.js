@@ -205,7 +205,7 @@ function setwatchers(){
 		rpaths();
 	}else{
 		// Completely async since we don't care at this point
-		for (i<0;i<paths.length;i++){
+		for (i=0;i<paths.length;i++){
 			var path = Path.resolve(paths[i]);
 			addwatcher(path,default_config);
 		}
