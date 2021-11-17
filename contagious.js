@@ -19,7 +19,7 @@
 // Set our default parameters
 var keyfile = '';
 var verbose = false;
-var recursive = false;
+var recursive = true;
 var paths = ['.'];
 var exclude = [];
 var servers = [''];
@@ -268,15 +268,15 @@ function syncpool(path){
 // Print usage
 function usage(error){
 	msg = 'Contagious.js Usage\n\n'
-	+ '-h	 	Display this help text\n'
-	+ '-v		Verbose output\n'
-	+ '-r		Recursively watch directories\n'
-	+ '--path=		Comma delimited paths: /home/foo,/var/www/html\n'
-	+ '		Current directory implied if omitted\n'
-	+ '--exclude=		Comma delimited paths to be excluded: temp-write,.log\n'
-	+ '--server=	Comma delimited servers: myserver.com,168.0.0.144\n'
-	+ '--user=		SSH user name (root implied if omitted)\n'
-	+ '--sshkey=	Path to SSH key\n';
+	+ '-h           Display this help text\n'
+	+ '-v           Verbose output\n'
+	+ '-r           Recursively watch directories (Deprecated.  Kept for compatibility.)\n'
+	+ '--path=      Comma delimited paths: /home/foo,/var/www/html\n'
+	+ '             Current directory implied if omitted\n'
+	+ '--exclude=   Comma delimited paths to be excluded: temp-write,.log\n'
+	+ '--server=    Comma delimited servers: myserver.com,168.0.0.144\n'
+	+ '--user=      SSH user name (root implied if omitted)\n'
+	+ '--sshkey=    Path to SSH key\n';
 	msg += (typeof error !== 'undefined') ? '\n' + error : '';
 	console.log(msg);
 	(typeof error !== 'undefined') ? process.exit(1) : process.exit(0);
