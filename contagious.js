@@ -34,7 +34,7 @@ var Inotify = require('inotify').Inotify;
 inotify = new Inotify();
 default_config = function(path){
 	return {path: path,
-			watch_for: Inotify.IN_DELETE | Inotify.IN_MODIFY | Inotify.IN_CREATE,
+			watch_for: Inotify.IN_DELETE | Inotify.IN_MOVED_TO | Inotify.IN_CLOSE_WRITE,
 			callback: dirwatch(path)
 	};
 };
