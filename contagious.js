@@ -75,6 +75,7 @@ function dirwatch(parent_path){
 			switch (mask){
 				case Inotify.IN_DELETE:
 					msg = " was deleted."
+					path = parent_path
 					break;
 				case Inotify.IN_MODIFY:
 					msg = " was modified."
@@ -87,6 +88,13 @@ function dirwatch(parent_path){
 			}
 		}
 		(verbose) ? console.log(path + msg) : '';
+        // Add trailing / to path if directory
+		fs.stat(path, function (err, stat) {
+			// If the file is a directory
+			if (stat && stat.isDirectory() && pathchk(path)){
+				path += '/';
+			}
+		});
 		// Sync this change with all servers in the list
 		syncpool(path);
 	}
@@ -243,7 +251,7 @@ function syncpool(path){
 	// Parse the path for rsync
 	function srvpathprs(server){
 		if (server) {
-			synclist.push(server + ':' + path + '/');
+			synclist.push(server + ':' + path);
 			srvpathprs(slist.shift());
 		}else{
 			syncall(synclist);
