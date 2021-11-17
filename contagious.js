@@ -88,7 +88,7 @@ function dirwatch(parent_path){
 		}
 		(verbose) ? console.log(path + msg) : '';
 		// Sync this change with all servers in the list
-		syncpool(parent_path);
+		syncpool(path);
 	}
 }
 
