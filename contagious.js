@@ -152,7 +152,7 @@ function parseconfs(){
 			processconf(args.shift());
 		}else{
 			// You can't sync without a destination
-			(servers.length <1) ? usage("Please specify at least one server.") : setwatchers();
+			(servers.length <1 || servers[0] === '' ) ? usage("Please specify at least one server.") : setwatchers();
 		}
 	}
 	// Ignore the first two	
