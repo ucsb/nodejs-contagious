@@ -19,7 +19,7 @@
 // Set our default parameters
 var keyfile = '';
 var verbose = false;
-var recursive = false;
+var recursive = true;
 var paths = ['.'];
 var exclude = [];
 var servers = [''];
@@ -34,7 +34,7 @@ var Inotify = require('inotify').Inotify;
 inotify = new Inotify();
 default_config = function(path){
 	return {path: path,
-			watch_for: Inotify.IN_DELETE | Inotify.IN_MODIFY | Inotify.IN_CREATE,
+			watch_for: Inotify.IN_DELETE | Inotify.IN_MOVED_TO | Inotify.IN_CLOSE_WRITE,
 			callback: dirwatch(path)
 	};
 };
@@ -75,6 +75,7 @@ function dirwatch(parent_path){
 			switch (mask){
 				case Inotify.IN_DELETE:
 					msg = " was deleted."
+					path = parent_path
 					break;
 				case Inotify.IN_MODIFY:
 					msg = " was modified."
@@ -87,8 +88,15 @@ function dirwatch(parent_path){
 			}
 		}
 		(verbose) ? console.log(path + msg) : '';
+        // Add trailing / to path if directory
+		fs.stat(path, function (err, stat) {
+			// If the file is a directory
+			if (stat && stat.isDirectory() && pathchk(path)){
+				path += '/';
+			}
+		});
 		// Sync this change with all servers in the list
-		syncpool(parent_path);
+		syncpool(path);
 	}
 }
 
@@ -152,7 +160,7 @@ function parseconfs(){
 			processconf(args.shift());
 		}else{
 			// You can't sync without a destination
-			(servers.length <1) ? usage("Please specify at least one server.") : setwatchers();
+			(servers.length <1 || servers[0] === '' ) ? usage("Please specify at least one server.") : setwatchers();
 		}
 	}
 	// Ignore the first two	
@@ -243,7 +251,7 @@ function syncpool(path){
 	// Parse the path for rsync
 	function srvpathprs(server){
 		if (server) {
-			synclist.push(server + ':' + path + '/');
+			synclist.push(server + ':' + path);
 			srvpathprs(slist.shift());
 		}else{
 			syncall(synclist);
@@ -268,15 +276,15 @@ function syncpool(path){
 // Print usage
 function usage(error){
 	msg = 'Contagious.js Usage\n\n'
-	+ '-h	 	Display this help text\n'
-	+ '-v		Verbose output\n'
-	+ '-r		Recursively watch directories\n'
-	+ '--path=		Comma delimited paths: /home/foo,/var/www/html\n'
-	+ '		Current directory implied if omitted\n'
-	+ '--exclude=		Comma delimited paths to be excluded: temp-write,.log\n'
-	+ '--server=	Comma delimited servers: myserver.com,168.0.0.144\n'
-	+ '--user=		SSH user name (root implied if omitted)\n'
-	+ '--sshkey=	Path to SSH key\n';
+	+ '-h           Display this help text\n'
+	+ '-v           Verbose output\n'
+	+ '-r           Recursively watch directories (Deprecated.  Kept for compatibility.)\n'
+	+ '--path=      Comma delimited paths: /home/foo,/var/www/html\n'
+	+ '             Current directory implied if omitted\n'
+	+ '--exclude=   Comma delimited paths to be excluded: temp-write,.log\n'
+	+ '--server=    Comma delimited servers: myserver.com,168.0.0.144\n'
+	+ '--user=      SSH user name (root implied if omitted)\n'
+	+ '--sshkey=    Path to SSH key\n';
 	msg += (typeof error !== 'undefined') ? '\n' + error : '';
 	console.log(msg);
 	(typeof error !== 'undefined') ? process.exit(1) : process.exit(0);
